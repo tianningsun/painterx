@@ -1,0 +1,12 @@
+# Image reconstruction workflow
+
+1. Preserve the untouched source image. Record every visible text run in a schema-1.0 manifest, including content, coordinates, font, size, weight, color, rotation, alignment, opacity, bounding box, z-index, and paint order.
+2. Reconstruct flat scientific diagrams semantically. Identify the canvas, large filled regions, membranes, organelles, repeated particles, connectors, arrowheads, labels, and their paint order. Use SVG primitives whenever possible. A visible straight line is one line segment; a circle is a circle or ellipse; a smooth visible boundary is one path with a small number of long cubic Bézier segments. Do not simulate a smooth outline with dozens of short segments.
+3. Use local VTracer only for irregular textures or continuous-tone regions that cannot be represented reasonably with primitives. Keep `stacked` hierarchy. Isolate traced texture from the semantically authored structural lines so it cannot contaminate their path quality.
+4. Run `merge_live_text.py`, `validate_vector_svg.py`, and `audit_path_quality.py --enforce`. Text must be real `<text>` elements, not outlines. For ordinary structural paths, use at most 16 anchors and keep sub-3-pixel segments below 15%. When an exceptional organic contour genuinely needs more anchors, audit it separately with an explicitly justified threshold; never relax the whole figure to accommodate one path.
+5. Run `run_cell_lct.py`. It parses the Master SVG once, writes immutable batch payloads, and executes all Illustrator mutations through one JXA-triggered ExtendScript session.
+6. Inspect the final Illustrator document. Confirm stacking, text position, object editability, and existing-artwork preservation. Leave the document open and unsaved by default. Save AI or export PNG only when the user explicitly requested that output.
+
+Ordinary batches contain 20–50 consecutive atoms. A genuinely complex atom may be a singleton; a whole figure with fewer than 20 atoms may be one smaller batch. Resume with the same cache and job directory.
+
+VTracer converts pixel regions into paths; it does not recover the original semantic objects and cannot by itself produce human pen-tool geometry. Do not use it for ordinary flat membranes, arrows, circles, boxes, or connectors. A useful scientific reconstruction is built from semantic primitives and a small number of long straight segments and smooth Bézier curves, not from maximized path or anchor counts.

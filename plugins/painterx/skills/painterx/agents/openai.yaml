@@ -1,0 +1,5 @@
+interface:
+  display_name: "PainterX"
+  short_description: "无 Key 本地重建 macOS/Windows Illustrator 科研矢量图"
+  default_prompt: "Use $painterx to recreate my reference as editable vectors and live text in Illustrator on macOS or Windows, launching it and creating a blank document when needed."
+  brand_color: "#2457C5"

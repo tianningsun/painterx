@@ -1,0 +1,14 @@
+{
+  "release": "0.4.0-desktop.3",
+  "upstream": "yrui-cmd/cell-lct@v0.2.1",
+  "platform": {
+    "os": "macOS 12+ or Windows 10/11 x64",
+    "shell": "bash 3.2+ on macOS; Windows PowerShell 5.1+ or PowerShell 7 on Windows",
+    "python": ">=3.11,<3.15",
+    "illustrator": "2021 (25.2+) through 2026 (30.x)",
+    "bridge": "AppleScript do javascript on macOS; Illustrator COM DoJavaScript on Windows"
+  },
+  "pythonDependencies": {"fonttools": "4.61.1", "vtracer": "1.0.0a3", "pillow": "12.3.0"},
+  "network": {"requiredAtRuntime": false, "apiKeyRequired": false},
+  "runtimeContracts": {"geometryCacheSchema": 3, "textManifestSchema": "1.0", "ordinaryBatchMin": 20, "ordinaryBatchMax": 50, "illustratorSessions": 1}
+}
